@@ -25,7 +25,7 @@ public class CZombieRenderer extends ZombieRenderer {
 	
 	public static final ResourceLocation
 	CUSTOM_TEXTURE = new ResourceLocation("undead",
-			"src/main/java/assets/czombie.png");
+			"assets/czombie.png");
 
 	public ResourceLocation
 		 getTextureLocation(CZombie entity) {

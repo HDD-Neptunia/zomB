@@ -97,6 +97,7 @@ public class Undead
                 map(m->m.messageSupplier().get()).
                 collect(Collectors.toList()));
     }
+    
     private void onRegisterCommand(RegisterCommandsEvent event) {
     	SpawnZombieCommand.register(event.getDispatcher());
     }

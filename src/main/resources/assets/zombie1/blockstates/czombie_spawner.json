@@ -1,0 +1,5 @@
+{
+	"variants": {
+		"": { "model": "zombie1:block/czombie_spawner" }
+	}
+}

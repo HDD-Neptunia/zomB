@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package networking;
 
 import java.util.function.Supplier;
@@ -21,21 +24,18 @@ public class RoundUpdatePacket {
 		this.zombiesLeft = zombiesLeft;
 	}
 
-	
 	public RoundUpdatePacket(FriendlyByteBuf buf) {
 		
 			this.round = buf.readInt();
 			this.zombiesLeft = buf.readInt();
-		}
-	
+	}
 	
 	public void encode(FriendlyByteBuf buf) {
 		buf.writeInt(round);
 		buf.writeInt(zombiesLeft);
 	}
 	
-			
-	
+
 	public static void handle(RoundUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			if(ctx.get().getDirection().getReceptionSide().isClient()) {
@@ -44,7 +44,6 @@ public class RoundUpdatePacket {
 			}
 		});
 		ctx.get().setPacketHandled(true);
-
 	}
 	
 	public int getRound() {
@@ -54,5 +53,4 @@ public class RoundUpdatePacket {
 	public int getZombiesleft() {
 		return zombiesLeft;
 	}
-
 }

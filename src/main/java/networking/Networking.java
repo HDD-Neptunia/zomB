@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package networking;
 
 import net.minecraft.resources.ResourceLocation;
@@ -11,8 +14,6 @@ public class Networking {
 			() -> PROTOCOL_VERSION,
 			PROTOCOL_VERSION::equals,
 			PROTOCOL_VERSION::equals);
-	
-
 	
 	public static void register() {
 		CHANNEL.registerMessage(2, 

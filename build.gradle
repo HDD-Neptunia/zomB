@@ -16,9 +16,8 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.0'
-group = 'com.O.zombie1' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'zombie1'
+version = '0.1.0.'
+group = 'com.O.zo0mbie1'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -180,7 +179,7 @@ jar {
                 "Specification-Vendor"    : "O X",
                 "Specification-Version"   : "0.1.0", // We are veion 1 of ourselves
                 "Implementation-Title"    : "zomB",
-                "Implementation-Version"  : "0.1.0",
+                "Implementation-Version"  : "0.1",
                 "Implementation-Vendor"   : "O X",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])

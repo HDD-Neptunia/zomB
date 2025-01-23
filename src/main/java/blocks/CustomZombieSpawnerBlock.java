@@ -1,8 +1,9 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package blocks;
 
 import javax.annotation.Nullable;
-
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +11,6 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import zombies.ZombieTypes;
 
 public class CustomZombieSpawnerBlock extends Block implements EntityBlock {
 
@@ -19,17 +19,7 @@ public class CustomZombieSpawnerBlock extends Block implements EntityBlock {
 	}
 	
 	private int healthMultipler;
-	
 	private int round;
-	
-	
-	//int numberToSpawn(ZombieTypes type, int round) {
-		
-	//}
-	
-	
-	
-	
 	
 	
 	@Nullable

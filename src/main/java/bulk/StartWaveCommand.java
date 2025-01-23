@@ -1,19 +1,18 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package bulk;
-
-
 
 import java.util.List;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
 import gui.GUICore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,12 +22,9 @@ import networking.OpenGuiPacket;
 import networking.RoundUpdatePacket;
 
 
-
 public class StartWaveCommand {
 	
-	
 	//Register the command
-	
 	public static int execute(CommandContext<CommandSourceStack> context) {
 		try {
 		ServerPlayer player = context.getSource().getPlayerOrException();
@@ -39,7 +35,6 @@ public class StartWaveCommand {
 			}
 		return 1;
 	}
-	
 	
 	
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -62,9 +57,9 @@ public class StartWaveCommand {
 							new RoundUpdatePacket(WaveManager.currentRound, WaveManager.zombiesRemaining));
 				
 					//Aaand render!
-				//	Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
+			Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
 					return execute(context);
-				})
+			})
 		);
 	}
 }

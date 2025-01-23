@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package networking;
 
 import java.util.function.Supplier;
@@ -12,10 +15,9 @@ public class OpenGuiPacket {
 
 	public OpenGuiPacket() {}
 	
-	
 	//encoding is unnecessary but required by forge
 	public static void encode(OpenGuiPacket msg, FriendlyByteBuf buf) {
-		//null
+		
 	}
 	
 	public static OpenGuiPacket decode(FriendlyByteBuf buf) {

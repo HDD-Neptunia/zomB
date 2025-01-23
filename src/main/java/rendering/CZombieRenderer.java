@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package rendering;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,5 +19,4 @@ public class CZombieRenderer extends ZombieRenderer {
 	public ResourceLocation getTextureLocation(CustomZombie entity) {
 		return TEXTURE;
 	}
-	
 }

@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package itembulk;
 
 import blocksbulk.BlocksInit;

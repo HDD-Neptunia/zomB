@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package com.O.zomB;
 
 import com.mojang.logging.LogUtils;
@@ -5,6 +8,7 @@ import com.mojang.logging.LogUtils;
 import blocksbulk.BlockEntityInit;
 import blocksbulk.BlocksInit;
 import entitybulk.EntityInit;
+import entitybulk.ModEntityAttributes;
 import itembulk.ItemInit;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.block.Block;
@@ -23,6 +27,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import networking.Networking;
+import zombies.CustomZombie;
+import zombies.FastZombie;
 
 import org.slf4j.Logger;
 
@@ -32,7 +38,6 @@ import java.util.stream.Collectors;
 @Mod("zombie1")
 public class Zombie1 {
 
-	
 	public static final String MODID = "zombie1";
 	
 	// Directly reference a slf4j logger
@@ -53,11 +58,8 @@ public class Zombie1 {
 		BlocksInit.register(eventBus);
 		BlockEntityInit.register(eventBus);
 		ItemInit.register(eventBus);
-		
-		//eventBus.addListener(this::registerEntityAttributes);
-		
-		MinecraftForge.EVENT_BUS.register(this);
 
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
@@ -75,8 +77,6 @@ public class Zombie1 {
 		});
 	}
 	
-	
-
 	private void processIMC(final InterModProcessEvent event) {
 		// Some example code to receive and process InterModComms from other mods
 		LOGGER.info("Got IMC {}",
@@ -90,11 +90,11 @@ public class Zombie1 {
 		LOGGER.info("HELLO from server starting");
 	}
 	
-/*	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
-		event.put(EntityInit.CZOMBIE.get(), Zombie.createAttributes().build());
-		event.put(EntityInit.FASTZOMBIE.get(), Zombie.createAttributes().build());
+  	public void registerEntityAttributes(EntityAttributeCreationEvent event) {
+		event.put(EntityInit.CZOMBIE.get(), CustomZombie.createAttributes().build());
+		event.put(EntityInit.FASTZOMBIE.get(), CustomZombie.createAttributes().build());
 		LOGGER.info("Custom Entity Attributes Registered");
-	}    */
+	}   
 
 	// You can use EventBusSubscriber to automatically subscribe events on the
 	// contained class (this is subscribing to the MOD
@@ -106,13 +106,6 @@ public class Zombie1 {
 		public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 			// Register a new block here
 			LOGGER.info("HELLO from Register Block");
-			
-	
-		}
-		
-
-	
-
-
+	}
   }
 }

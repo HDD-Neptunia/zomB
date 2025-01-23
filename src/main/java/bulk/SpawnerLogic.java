@@ -1,3 +1,6 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package bulk;
 
 import java.util.ArrayList;
@@ -7,16 +10,9 @@ import java.util.Random;
 
 import blocks.CustomZombieSpawnerBlock;
 import entitybulk.EntityInit;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import zombies.CustomZombie;
 import zombies.ZombieTypes;
 
@@ -26,7 +22,6 @@ public class SpawnerLogic {
 	private static int currentRound = 0;
 	private static int zombiesPerRound = 7;
 	private static int maxZombiesOnField = 75;
-	
 	
 	
 	public static void startRound(ServerLevel level, BlockPos playerPos, List<BlockPos> allSpawners) {
@@ -43,13 +38,9 @@ public class SpawnerLogic {
 				
 		if (playerPos == null) return;
 		
-		//BlockPos playerPos = player.blockPosition();
-		
 		//Find all spawners in range
 		List<BlockPos> spawners = findSpawnersInRange(level, playerPos, 50);
 		spawnZombies(level, playerPos, spawners);
-		
-		
 		
 		spawners.sort(Comparator.comparingDouble(spawner -> spawner.distSqr(playerPos)));
 		if(spawners.size() >= 2) {
@@ -107,17 +98,12 @@ public class SpawnerLogic {
 	}
 	
 	public static CustomZombie createZombie(ServerLevel level) {
-	//	EntityType<CustomZombie> entityType = EntityInit.CZOMBIE.get()
 		
 		for(ZombieTypes type : ZombieTypes.values()) {
 			if (currentRound >= type.getSpawnInterval() && currentRound % type.getSpawnInterval() == 0) {
 				try {
-				//	CustomZombie zombie = (CustomZombie) type.getEntityType().create(level);
-					//return type.getZombieClass().getConstructor(ServerLevel.class).newInstance(level);
-					
 					Mob mob = type.getEntityType().create(level);
 					if(mob instanceof CustomZombie zombie) {
-				//	if (zombie != null) {
 						return zombie;
 					}
 				} catch (Exception e) {
@@ -128,14 +114,5 @@ public class SpawnerLogic {
 		
 		return EntityInit.CZOMBIE.get().create(level);
 		
-	/*	try {
-			return ZombieTypes.CZOMBIE.getZombieClass().getConstructor(ServerLevel.class).newInstance(level);	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
-	//	return entityType.create(level);
 	}
-	
-
 }

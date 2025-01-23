@@ -1,10 +1,10 @@
+//   zomB - Create your own maps and survive this fast-paced, wave-style minigame.
+//   Copyright (C) 2024 HDD-Neptunia
+
 package gui;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -14,7 +14,6 @@ import networking.RoundUpdatePacket;
 
 public class GUICore extends Screen {
 
-	
 	public static boolean guiVisible = false;
 	private static int currentRound;
 	private static int zombiesRemaining = 0;
@@ -26,10 +25,9 @@ public class GUICore extends Screen {
 	public void openGUI() {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
+		}
 	}
-}
 
-	
 	@Override
 	public void onClose() {
 		if (this.minecraft != null) {
@@ -37,6 +35,7 @@ public class GUICore extends Screen {
 		}
 		super.onClose();
 	}
+	
 	@Override
 	public boolean isPauseScreen() {
 		return false;
@@ -45,14 +44,15 @@ public class GUICore extends Screen {
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if(keyCode == 256) {
-			
 			return true;
-		}
-		return super.keyPressed(keyCode,  scanCode, modifiers);
+			
+		}	return super.keyPressed(keyCode,  scanCode, modifiers);
 	}
+	
 	public static void setVisible(boolean visible) {
 		guiVisible = visible;
 	}
+	
 	public static boolean isVisible() {
 		return guiVisible;
 	}
@@ -72,7 +72,7 @@ public class GUICore extends Screen {
 			    "Zombies Remaining: " + zombiesRemaining, 10, 25, 0xFFFFFF);
 
 	    super.render(poseStack, mouseX,  mouseY, partialTicks);
-}
+	}
 	
 	public static void updateRound(int round) {
 		currentRound = round;
@@ -81,8 +81,6 @@ public class GUICore extends Screen {
 	public static void updateZombieRemaining(int zombiesLeft) {
 		zombiesLeft = RoundUpdatePacket.zombiesLeft;
 	}
-	
-	
 }
 
 

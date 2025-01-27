@@ -1,0 +1,8 @@
+package zombies;
+
+
+
+public class IceZombie<extends Zombie?>{
+    public IceZombie(World world, Level level){
+        super(world, level);
+}}

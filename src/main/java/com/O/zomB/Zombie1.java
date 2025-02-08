@@ -29,6 +29,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import networking.Networking;
 import zombies.CustomZombie;
 import zombies.FastZombie;
+import zombies.IceZombie;
 
 import org.slf4j.Logger;
 
@@ -93,6 +94,7 @@ public class Zombie1 {
   	public void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		event.put(EntityInit.CZOMBIE.get(), CustomZombie.createAttributes().build());
 		event.put(EntityInit.FASTZOMBIE.get(), CustomZombie.createAttributes().build());
+		event.put(EntityInit.ICEZOMBIE.get(), IceZombie.createAttributes().build());
 		LOGGER.info("Custom Entity Attributes Registered");
 	}   
 

@@ -8,7 +8,6 @@ import java.util.List;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import gui.GUICore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -28,7 +27,9 @@ public class StartWaveCommand {
 	public static int execute(CommandContext<CommandSourceStack> context) {
 		try {
 		ServerPlayer player = context.getSource().getPlayerOrException();
-		Networking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenGuiPacket());
+		
+		Networking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), 
+				new RoundUpdatePacket(WaveManager.currentRound, WaveManager.zombiesRemaining));
 		
 		} catch (CommandSyntaxException e) {
 			context.getSource().sendFailure(new TextComponent("can be run by a player"));
@@ -46,18 +47,18 @@ public class StartWaveCommand {
 						ServerLevel level = context.getSource().getLevel();
 						ServerPlayer player = context.getSource().getPlayerOrException();
 						BlockPos playerPos = player.blockPosition();
-						List<BlockPos> allSpawners = SpawnerLogic.findSpawnersInRange(level, player.blockPosition(), 10);
+						List<BlockPos> allSpawners = SpawnerLogic.findSpawnersInRange(level, playerPos, 10);
 						
 						
 					SpawnerLogic.startRound(level, playerPos, allSpawners);
 					//Make GUI visible
-					GUICore.setVisible(true);
+				
 					
 					Networking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),
 							new RoundUpdatePacket(WaveManager.currentRound, WaveManager.zombiesRemaining));
 				
 					//Aaand render!
-			Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
+		//	Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
 					return execute(context);
 			})
 		);

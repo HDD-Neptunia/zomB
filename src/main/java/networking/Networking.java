@@ -27,5 +27,17 @@ public class Networking {
 			RoundUpdatePacket::encode,
 			RoundUpdatePacket::new,
 			RoundUpdatePacket::handle);
+		
+		CHANNEL.registerMessage(4,
+			ZombieDeathPacket.class,
+			ZombieDeathPacket::encode,
+			ZombieDeathPacket::new,
+			ZombieDeathPacket::handle);
+		
+		CHANNEL.registerMessage(5,
+			CompleteRoundPacket.class,
+			CompleteRoundPacket::encode,
+			CompleteRoundPacket::new,
+			CompleteRoundPacket::handle);
 	}
 }

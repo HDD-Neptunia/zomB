@@ -5,7 +5,7 @@ package networking;
 
 import java.util.function.Supplier;
 
-import gui.GUICore;
+import gui.HUDState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextComponent;
@@ -27,11 +27,13 @@ public class OpenGuiPacket {
 	
 	public static void handle(OpenGuiPacket msg, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
-			
-			if(ctx.get().getDirection().getReceptionSide().isClient()) {
-			Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
-			}
-		});
+			HUDState.setEnabled(!HUDState.isEnabled());
+			//if(ctx.get().getDirection().getReceptionSide().isClient()) {
+			//Minecraft.getInstance().setScreen(new GUICore(new TextComponent("Wave")));
+			});
+		
 		ctx.get().setPacketHandled(true);
 	} //Handle method is client only due to Minecraft.getInstance()
 }
+
+

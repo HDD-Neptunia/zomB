@@ -5,19 +5,16 @@ package networking;
 
 import java.util.function.Supplier;
 
-import gui.GUICore;
-import net.minecraft.client.Minecraft;
+import bulk.WaveManager;
+import gui.onRenderHUD;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+
 
 public class RoundUpdatePacket {
 	
-	private final int round;
-	public static int zombiesLeft;
-	
+	public int round = WaveManager.currentRound;
+	public final int zombiesLeft;
 	
 	public RoundUpdatePacket(int round, int zombiesLeft) {
 		this.round = round;
@@ -39,8 +36,7 @@ public class RoundUpdatePacket {
 	public static void handle(RoundUpdatePacket packet, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			if(ctx.get().getDirection().getReceptionSide().isClient()) {
-			GUICore.updateRound(packet.round);
-			GUICore.updateRound(packet.zombiesLeft);
+				onRenderHUD.updateRound(packet.round, packet.zombiesLeft);
 			}
 		});
 		ctx.get().setPacketHandled(true);

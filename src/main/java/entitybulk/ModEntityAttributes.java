@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import zombies.CustomZombie;
 import zombies.FastZombie;
+import zombies.IceZombie;
 
 @Mod.EventBusSubscriber(modid = "zombie1", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityAttributes {
@@ -18,6 +19,7 @@ public class ModEntityAttributes {
 		
 		event.put(EntityInit.CZOMBIE.get(), CustomZombie.createAttributes().build());
 		event.put(EntityInit.FASTZOMBIE.get(), FastZombie.createAttributes().build());
+		event.put(EntityInit.ICEZOMBIE.get(), IceZombie.createAttributes().build());
 	}
 	
 	public static void register(IEventBus eventBus) {

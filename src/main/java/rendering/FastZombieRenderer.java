@@ -5,6 +5,7 @@ package rendering;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import zombies.CustomZombie;
 import zombies.FastZombie;
 
 
@@ -17,5 +18,5 @@ public class FastZombieRenderer extends CZombieRenderer {
 		
 		public ResourceLocation getTextureLocation(FastZombie entity) {
 			return TEXTURE;
-		}
 	}
+}

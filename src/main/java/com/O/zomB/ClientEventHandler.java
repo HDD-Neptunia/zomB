@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import rendering.CZombieRenderer;
 import rendering.FastZombieRenderer;
+import rendering.IceZombieRenderer;
+import zombies.IceZombie;
 
 @Mod.EventBusSubscriber(modid = Zombie1.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventHandler {
@@ -23,6 +25,7 @@ public class ClientEventHandler {
 		//Register custom renderer for CZombie
 		EntityRenderers.register(EntityInit.CZOMBIE.get(), CZombieRenderer::new);
 		EntityRenderers.register(EntityInit.FASTZOMBIE.get(), FastZombieRenderer::new);
+		EntityRenderers.register(EntityInit.ICEZOMBIE.get(), IceZombieRenderer::new);		
 		
 		//Transparency layer for custom spawner
 		ItemBlockRenderTypes.setRenderLayer(BlocksInit.CZOMBIE_SPAWNER.get(), RenderType.cutout());

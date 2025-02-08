@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import zombies.CustomZombie;
 import zombies.FastZombie;
+import zombies.IceZombie;
 
 
 public class EntityInit {
@@ -32,6 +33,10 @@ public class EntityInit {
 				.sized(0.6F, 1.7F)
 				.build(new ResourceLocation(Zombie1.MODID, "fastzombie").toString()));
 	
+	public static final RegistryObject<EntityType<IceZombie>> ICEZOMBIE = ENTITY_TYPES.register("icezombies",
+			() -> EntityType.Builder.of(IceZombie::new, MobCategory.MONSTER)
+				.sized(0.5F, 2.0F)
+				.build(new ResourceLocation(Zombie1.MODID, "icezombie").toString()));
 
 		    //Register your entities and items to eventBus
 		    public static void register(IEventBus eventBus) {

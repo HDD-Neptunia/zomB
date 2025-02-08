@@ -14,7 +14,7 @@ license="licensed under GPLv3."
 #issueTrackerURL="Issue tracker WIP" #o
 
 # A list of mods - how many allowed here is determined by the individual mod loader
-[[mods]] #mandatory
+[[mods]] #m
 
 # The modid of the mod
 modId="zombie1" #m

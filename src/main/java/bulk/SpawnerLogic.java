@@ -12,16 +12,32 @@ import blocks.CustomZombieSpawnerBlock;
 import entitybulk.EntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.PacketDistributor;
+import networking.Networking;
+import networking.RoundUpdatePacket;
 import zombies.CustomZombie;
 import zombies.ZombieTypes;
 
 public class SpawnerLogic {
 	private static final Random random = new Random();
-	private static final List<Mob> activeZombies = new ArrayList<>();
-	private static int currentRound = 0;
+	static final List<Mob> activeZombies = new ArrayList<>();
+	static int currentRound = 0;
 	private static int zombiesPerRound = 7;
+	private static int totalSpecialUnits;
+	private static int totalZombies = zombiesPerRound;
 	private static int maxZombiesOnField = 75;
+	
+	public static int totalZombies() {
+		return zombiesPerRound;
+	}
+
+	public static int activeRound() {
+		return currentRound;
+	}
+	
 	
 	
 	public static void startRound(ServerLevel level, BlockPos playerPos, List<BlockPos> allSpawners) {
@@ -31,6 +47,19 @@ public class SpawnerLogic {
 		List<BlockPos> nearestSpawners = findSpawnersInRange(level, playerPos, 50);
 		spawnZombies(level, playerPos, nearestSpawners);
 	}
+	
+	public static void completeRound(int zombiesRemaining, int currentRound, ServerLevel level, ServerPlayer player, BlockPos playerPos, List<BlockPos> allSpawners) {
+		if(zombiesRemaining==0) {
+			WaveManager.currentRound++;
+			SpawnerLogic.currentRound = WaveManager.currentRound;
+			
+			spawnZombies(level, playerPos, allSpawners);
+			
+			ServerPlayer serverPlayer = (ServerPlayer) player;
+			Networking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer),
+					new RoundUpdatePacket(SpawnerLogic.currentRound, zombiesRemaining));
+	}
+}
 	
 	 public static void activateNearestSpawners(ServerLevel level, BlockPos playerPos) {
 		
@@ -74,11 +103,11 @@ public class SpawnerLogic {
 	
 	
 	public static void spawnZombies(ServerLevel level, BlockPos playerPos, List<BlockPos> spawners) {
-		int zombiesSpawned = 0;
+	
 		int attempts = 0;
+		int zombiesSpawned = 0;
 		
-		
-		while(zombiesSpawned < zombiesPerRound && activeZombies.size() < maxZombiesOnField && !spawners.isEmpty() && attempts < 100) {
+		while(zombiesSpawned < WaveManager.zombiesRemaining && activeZombies.size() < maxZombiesOnField && !spawners.isEmpty() && attempts < 100) {
 			attempts++;
 			BlockPos spawnerPos = spawners.get(random.nextInt(spawners.size()));
 			CustomZombie zombie = createZombie(level);
@@ -92,7 +121,7 @@ public class SpawnerLogic {
 			}
 		}
 	}
-	
+
 	public static void spawnZombiesBetween(BlockPos spawner1, BlockPos spawner2) {
 		//spawn logic between the two spawners
 	}

@@ -24,8 +24,8 @@ import zombies.ZombieTypes;
 public class SpawnerLogic {
 	private static final Random random = new Random();
 	static final List<Mob> activeZombies = new ArrayList<>();
-	static int currentRound = 0;
-	private static int zombiesPerRound = 7;
+	static int currentRound = WaveManager.currentRound;
+	private static int zombiesPerRound = WaveManager.zombiesRemaining;
 	private static int totalSpecialUnits;
 	private static int totalZombies = zombiesPerRound;
 	private static int maxZombiesOnField = 75;
@@ -41,8 +41,10 @@ public class SpawnerLogic {
 	
 	
 	public static void startRound(ServerLevel level, BlockPos playerPos, List<BlockPos> allSpawners) {
-		currentRound++;
-		zombiesPerRound += 4;
+
+		if(currentRound>1) {
+			zombiesPerRound += 4;
+		}
 		
 		List<BlockPos> nearestSpawners = findSpawnersInRange(level, playerPos, 50);
 		spawnZombies(level, playerPos, nearestSpawners);
@@ -53,7 +55,9 @@ public class SpawnerLogic {
 			WaveManager.currentRound++;
 			SpawnerLogic.currentRound = WaveManager.currentRound;
 			
-			spawnZombies(level, playerPos, allSpawners);
+			List<BlockPos> nearestSpawners = findSpawnersInRange(level, playerPos, 50);
+			
+			spawnZombies(level, playerPos, nearestSpawners);
 			
 			ServerPlayer serverPlayer = (ServerPlayer) player;
 			Networking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer),
@@ -64,7 +68,6 @@ public class SpawnerLogic {
 	 public static void activateNearestSpawners(ServerLevel level, BlockPos playerPos) {
 		
 		//Find player pos
-				
 		if (playerPos == null) return;
 		
 		//Find all spawners in range
@@ -106,6 +109,10 @@ public class SpawnerLogic {
 	
 		int attempts = 0;
 		int zombiesSpawned = 0;
+		
+		if(WaveManager.zombiesRemaining <= 0) {
+			WaveManager.zombiesRemaining = 0;
+		}
 		
 		while(zombiesSpawned < WaveManager.zombiesRemaining && activeZombies.size() < maxZombiesOnField && !spawners.isEmpty() && attempts < 100) {
 			attempts++;

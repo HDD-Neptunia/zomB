@@ -39,5 +39,12 @@ public class Networking {
 			CompleteRoundPacket::encode,
 			CompleteRoundPacket::new,
 			CompleteRoundPacket::handle);
+		
+		CHANNEL.registerMessage(6,
+			PointsPacket.class,
+			PointsPacket::encode,
+			PointsPacket::decode,
+			PointsPacket::handle
+			);
 	}
 }

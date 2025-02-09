@@ -13,12 +13,12 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class RoundUpdatePacket {
 	
-	public int round = WaveManager.currentRound;
-	public final int zombiesLeft;
+	public final int round;
+	public final int zombiesLeft ;
 	
 	public RoundUpdatePacket(int round, int zombiesLeft) {
-		this.round = round;
-		this.zombiesLeft = zombiesLeft;
+		this.round = WaveManager.currentRound;
+		this.zombiesLeft = WaveManager.zombiesRemaining;
 	}
 
 	public RoundUpdatePacket(FriendlyByteBuf buf) {

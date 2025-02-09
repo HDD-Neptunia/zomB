@@ -27,6 +27,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import networking.Networking;
+import pointsmanager.PointsManager;
 import zombies.CustomZombie;
 import zombies.FastZombie;
 import zombies.IceZombie;
@@ -60,6 +61,7 @@ public class Zombie1 {
 		BlockEntityInit.register(eventBus);
 		ItemInit.register(eventBus);
 
+		MinecraftForge.EVENT_BUS.register(new PointsManager());
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
